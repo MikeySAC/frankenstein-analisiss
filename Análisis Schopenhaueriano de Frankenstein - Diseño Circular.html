@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)file:///C:/Users/Huawei/Downloads/frankenstein_analisis_circular%20(2).html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Schopenhaueriano de Frankenstein - Diseño Circular</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a2f1a 0%, #2d4a2d 50%, #3d5a3d 100%);
+            color: #f5f1e8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #d4c5a0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #b8a882;
+            font-style: italic;
+        }
+
+        .circular-container {
+            position: relative;
+            width: 900px;
+            height: 900px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .center-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #4a6741 0%, #2d4a2d 100%);
+            border: 4px solid #d4c5a0;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(212, 197, 160, 0.4);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .center-node:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 50px rgba(212, 197, 160, 0.6);
+        }
+
+        .center-node .emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .center-node h2 {
+            font-size: 1.3rem;
+            color: #d4c5a0;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .node {
+            position: absolute;
+            background: linear-gradient(135deg, #3d5a3d 0%, #2d4a2d 100%);
+            border: 3px solid #b8a882;
+            border-radius: 20px;
+            padding: 20px;
+            width: 220px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(212, 197, 160, 0.5);
+            border-color: #d4c5a0;
+            z-index: 5;
+        }
+
+        .node h3 {
+            color: #d4c5a0;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .node .emoji {
+            font-size: 1.5rem;
+        }
+
+        .node p, .node ul {
+            color: #e8dfc5;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .node ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        .node li {
+            margin: 5px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .node li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #d4c5a0;
+        }
+
+        /* Posicionamiento circular de los nodos */
+        .node-1 { top: 50px; left: 50%; transform: translateX(-50%); }
+        .node-2 { top: 150px; left: 80px; }
+        .node-3 { top: 400px; left: 20px; }
+        .node-4 { top: 650px; left: 100px; }
+        .node-5 { top: 650px; right: 100px; }
+        .node-6 { top: 400px; right: 20px; }
+        .node-7 { top: 150px; right: 80px; }
+
+        /* Líneas de conexión */
+        .connection {
+            position: absolute;
+            background: linear-gradient(90deg, rgba(212, 197, 160, 0.3), rgba(212, 197, 160, 0.1));
+            height: 2px;
+            transform-origin: left center;
+            z-index: 1;
+            animation: lineGrow 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes lineGrow {
+            from { width: 0; opacity: 0; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        .result-boxes {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            animation: fadeIn 2.5s ease-in;
+            z-index: 0;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, rgba(74, 103, 65, 0.7) 0%, rgba(45, 74, 45, 0.7) 100%);
+            border: 2px solid rgba(184, 168, 130, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .result-box:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(212, 197, 160, 0.3);
+            border-color: rgba(212, 197, 160, 0.8);
+        }
+
+        .result-box.negative {
+            border-color: rgba(201, 74, 74, 0.6);
+        }
+
+        .result-box.positive {
+            border-color: rgba(107, 201, 107, 0.6);
+        }
+
+        .result-box .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .result-box h4 {
+            color: rgba(212, 197, 160, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .result-box p {
+            color: rgba(232, 223, 197, 0.8);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 1000px) {
+            .circular-container {
+                width: 700px;
+                height: 700px;
+            }
+            .node { width: 180px; font-size: 0.85rem; padding: 15px; }
+            .center-node { width: 150px; height: 150px; }
+        }
+
+        @media (max-width: 768px) {
+            .circular-container {
+                width: 500px;
+                height: 900px;
+                position: relative;
+            }
+            .node {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                transform: none !important;
+                margin: 20px auto;
+                width: 90%;
+            }
+            .center-node {
+                position: relative;
+                transform: none;
+                margin: 20px auto;
+            }
+            .result-boxes {
+                position: relative;
+                flex-direction: column;
+                transform: none;
+                margin-top: 30px;
+            }
+            .connection { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎭 Análisis Schopenhaueriano de Frankenstein</h1>
+    </div>
+
+    <div class="circular-container">
+        <!-- Nodo Central -->
+        <div class="center-node">
+            <div class="emoji">🎭</div>
+            <h2>VÍCTOR<br>FRANKENSTEIN</h2>
+        </div>
+
+        <!-- Nodo 1: Voluntad -->
+        <div class="node node-1" style="animation-delay: 0s; border-color: rgb(184, 168, 130); box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;">
+            <h3><span class="emoji">🌀</span> VOLUNTAD</h3>
+            <ul>
+                <li>Obsesión tras muerte de su madre</li>
+                <li>Dolor transformado en búsqueda científica</li>
+                <li>Control sobre vida y muerte</li>
+            </ul>
+        </div>
+
+        <!-- Nodo 2: Sufrimiento -->
+        <div class="node node-2" style="animation-delay: 0.2s; border-color: rgb(184, 168, 130); box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;">
+            <h3><span class="emoji">💔</span> SUFRIMIENTO</h3>
+            <p><strong>Causa inmediata:</strong></p>
+            <ul>
+                <li>Muerte de su madre</li>
+            </ul>
+            <p><strong>Causa profunda:</strong></p>
+            <ul>
+                <li>Negativa a aceptar la mortalidad</li>
+            </ul>
+        </div>
+
+        <!-- Nodo 3: Motivos -->
+        <div class="node node-3" style="animation-delay: 0.4s; border-color: rgb(184, 168, 130); box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;">
+            <h3><span class="emoji">🎯</span> MOTIVOS</h3>
+            <p><strong>Aparentes:</strong></p>
+            <ul>
+                <li>Avanzar la ciencia</li>
+            </ul>
+            <p><strong>Reales:</strong></p>
+            <ul>
+                <li>Vencer la muerte</li>
+                <li>Control divino</li>
+                <li>Negar vulnerabilidad</li>
+            </ul>
+        </div>
+
+        <!-- Nodo 4: El Miedo (parte inferior izquierda) -->
+        <div class="node node-4" style="animation-delay: 0.6s; border-color: rgb(184, 168, 130); box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;">
+            <h3><span class="emoji">☠️</span> EL MIEDO</h3>
+            <p>Opera en 4 dimensiones:</p>
+            <ul>
+                <li><strong>1.</strong> DESEO (inmortalidad)</li>
+                <li><strong>2.</strong> ILUSIÓN (control)</li>
+                <li><strong>3.</strong> SUEÑO (perpetuidad)</li>
+                <li><strong>4.</strong> QUERER (conservar vida)</li>
+            </ul>
+        </div>
+
+        <!-- Nodo 5: Egoísmo (parte inferior derecha) -->
+        <div class="node node-5" style="animation-delay: 0.8s; border-color: rgb(184, 168, 130); box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;">
+            <h3><span class="emoji">😈</span> EGOÍSMO</h3>
+            <p>Víctor rechaza porque:</p>
+            <ul>
+                <li>Atrapado en su voluntad individual</li>
+                <li>Incapaz de contemplación pura</li>
+                <li>Solo ve expectativas frustradas</li>
+            </ul>
+            <p style="margin-top: 10px; font-style: italic; color: #d4c5a0;">
+                "Mientras la voluntad domine, no habrá paz"
+            </p>
+        </div>
+
+        <!-- Nodo 6: Elizabeth (parte derecha) -->
+        <div class="node node-6" style="animation-delay: 1s; border-color: rgb(184, 168, 130); box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;">
+            <h3><span class="emoji">💚</span> ELIZABETH</h3>
+            <p><strong>Compasión genuina:</strong></p>
+            <ul>
+                <li>NO teme a la criatura</li>
+                <li>Reconoce su humanidad</li>
+                <li>Ve al ser detrás de la apariencia</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>vs. Víctor:</strong></p>
+            <ul>
+                <li>Huye horrorizado</li>
+                <li>Rechazo total</li>
+            </ul>
+        </div>
+
+        <!-- Nodo 7: El Amor (parte superior derecha) -->
+        <div class="node node-7" style="animation-delay: 1.2s; border-color: rgb(184, 168, 130); box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 15px;">
+            <h3><span class="emoji">❤️</span> EL AMOR</h3>
+            <p><strong>Contribuye al carácter bondadoso:</strong></p>
+            <p style="margin: 10px 0; color: #6bc96b;">
+                ✅ CON amor → Bondad
+            </p>
+            <p style="margin: 10px 0; color: #c94a4a;">
+                ❌ SIN amor → Venganza
+            </p>
+            <p style="margin-top: 10px; font-style: italic;">
+                El carácter se forma según el trato recibido
+            </p>
+        </div>
+
+        <!-- Cajas de Resultado Final -->
+        <div class="result-boxes">
+            <div class="result-box negative">
+                <div class="emoji">☠️</div>
+                <h4>VÍCTOR</h4>
+                <p>Egoísmo<br>Rechazo<br>Destrucción mutua</p>
+            </div>
+            <div class="result-box positive">
+                <div class="emoji">💚</div>
+                <h4>ELIZABETH</h4>
+                <p>Compasión<br>Aceptación<br>Esperanza</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animación sutil de entrada para los nodos
+        document.addEventListener('DOMContentLoaded', function() {
+            const nodes = document.querySelectorAll('.node');
+            nodes.forEach((node, index) => {
+                node.style.animationDelay = `${index * 0.2}s`;
+            });
+
+            // Efecto de hover en el nodo central que resalta las conexiones
+            const centerNode = document.querySelector('.center-node');
+            const allNodes = document.querySelectorAll('.node');
+            
+            centerNode.addEventListener('mouseenter', function() {
+                allNodes.forEach(node => {
+                    node.style.borderColor = '#d4c5a0';
+                    node.style.boxShadow = '0 6px 25px rgba(212, 197, 160, 0.5)';
+                });
+            });
+
+            centerNode.addEventListener('mouseleave', function() {
+                allNodes.forEach(node => {
+                    node.style.borderColor = '#b8a882';
+                    node.style.boxShadow = '0 4px 15px rgba(0,0,0,0.4)';
+                });
+            });
+        });
+    </script>
+
+
+</body></html>
